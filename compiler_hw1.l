@@ -45,7 +45,7 @@ string_lit ([^"]|\"\")*
 "-="         { printf("%-8s \t %s\n", yytext, "SUB_ASSIGN"); }
 "*="         { printf("%-8s \t %s\n", yytext, "MUL_ASSIGN"); }
 "/="         { printf("%-8s \t %s\n", yytext, "QUO_ASSIGN"); }
-"%="         { printf("%-8s \t %s\n", yytext, "REM-ASSIGN"); }
+"%="         { printf("%-8s \t %s\n", yytext, "REM_ASSIGN"); }
 "&&"         { printf("%-8s \t %s\n", yytext, "AND"); }
 "||"         { printf("%-8s \t %s\n", yytext, "OR"); }
 "!"         { printf("%-8s \t %s\n", yytext, "NOT"); }
@@ -76,9 +76,8 @@ string_lit ([^"]|\"\")*
 
 
 {id}        { printf("%-8s \t %s\n", yytext, "IDENT"); }
-{inumber}        { printf("%-8s \t %s\n", yytext, "INI_LIT"); }
+{inumber}        { printf("%-8s \t %s\n", yytext, "INT_LIT"); }
 {fnumber}        { printf("%-8s \t %s\n", yytext, "FLOAT_LIT"); }
-{id}        { printf("%-8s \t %s\n", yytext, "IDENT"); }
 
 "\""        { printf("%-8s \t %s\n", yytext, "QUOTA");BEGIN STR;}
 <STR>{string_lit}       { printf("%-8s \t %s\n", yytext, "STRING_LIT");}
