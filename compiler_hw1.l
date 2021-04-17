@@ -87,9 +87,9 @@ string_lit ([^"]|\"\")*
 "C_comment"     {printf("%-8s \t %s\n", yytext, "C comment");comment_num ++;}
 "Cpp_comment"   {printf("%-8s \t %s\n", yytext, "Cpp comment");comment_num ++;}
 
-"\/\*"(.)*  {BEGIN <C>;comment_num ++;printf("%-8s \t %s\n", yytext, "C_comment");}
-<C>(.)*"\*\/"   {BEGIN <C>;printf("%-8s \t %s\n", yytext, "C_comment");}
-<C>[^\n]*   {BEGIN <C>;printf("%-8s \t %s\n", yytext, "C_comment");}
+"\/\*"(.)*  {printf("%-8s \t %s\n", yytext, "C_comment");BEGIN C;comment_num ++;}
+<C>(.)*"\*\/"   {printf("%-8s \t %s\n", yytext, "C_comment");BEGIN C;}
+<C>[^\n]*   {printf("%-8s \t %s\n", yytext, "C_comment");BEGIN C;}
 <C>\n   {line_num++;}
 
 <<EOF>>     { line_num++; yyterminate(); }
