@@ -84,7 +84,7 @@ string_lit ([^"]|\"\")*
 <STR>"\""       { printf("%-8s \t %s\n", yytext, "QUOTA");BEGIN 0;}
 
 "C_comment"     {printf("%-8s \t %s\n", yytext, "C Comment");comment_num ++;}
-"Cpp_comment"   {printf("%-8s \t %s\n", yytext, "Cpp Comment");comment_num ++;}
+"Cpp_comment"   {printf("%-8s \t %s\n", yytext, "C++ Comment");comment_num ++;}
 
 "\/\*"(.)*  {printf("%-8s \t %s\n", yytext, "C Comment");BEGIN C;comment_num ++;}
 <C>(.)*"\*\/"   {printf("%-8s \t %s\n", yytext, "C Comment");BEGIN C;comment_num ++;}
