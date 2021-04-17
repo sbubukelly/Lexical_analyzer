@@ -17,7 +17,6 @@ digit [0-9]
 id {letter}+({letter}|{digit})*
 inumber {digit}+
 fnumber ({digit}*\.{digit}+)
-discard
 C_comment \/\*(.)*\*\/  
 Cpp_comment (\/\/)(.)*
 string_lit ([^"]|\"\")*
