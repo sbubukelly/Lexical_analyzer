@@ -19,7 +19,7 @@ inumber {digit}+
 fnumber ({digit}*\.{digit}+)
 C_comment "/*"(.)*"*/" 
 Cpp_comment "//"[^\n]*
-string_lit ([^"]|\"\")*
+string_lit ([^"]|\\\")*
 
 
 %x STR C 
