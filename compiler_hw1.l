@@ -18,12 +18,12 @@ id {letter}+({letter}|{digit})*
 inumber {digit}+
 fnumber ({digit}*\.{digit}+)
 discard
-C_comment /\*(.)*\*/  
+C_comment \/\*(.)*\*\/  
 Cpp_comment (\/\/)(.)*
 string_lit ([^"]|\"\")*
 
 
-%x STR
+%x STR C 
 
 /* Rules section */
 %%
@@ -80,9 +80,18 @@ string_lit ([^"]|\"\")*
 {inumber}        { printf("%-8s \t %s\n", yytext, "INI_LIT"); }
 {fnumber}        { printf("%-8s \t %s\n", yytext, "FLOAT_LIT"); }
 {id}        { printf("%-8s \t %s\n", yytext, "IDENT"); }
+
 "\""        { printf("%-8s \t %s\n", yytext, "QUOTA");BEGIN STR;}
 <STR>{string_lit}       { printf("%-8s \t %s\n", yytext, "STRING_LIT");}
 <STR>"\""       { printf("%-8s \t %s\n", yytext, "QUOTA");BEGIN 0;}
+
+"C_comment"     {printf("%-8s \t %s\n", yytext, "C comment");comment_num ++}
+"Cpp_comment"   {printf("%-8s \t %s\n", yytext, "Cpp comment");comment_num ++}
+
+"\/\*"(.)*  {printf("%-8s \t %s\n", yytext, "C_comment");BEGIN <C>;comment_num ++}
+<C>(.)*"\*\/"   {printf("%-8s \t %s\n", yytext, "C_comment");BEGIN <C>;}
+<C>[^\n]*   {printf("%-8s \t %s\n", yytext, "C_comment");BEGIN <C>;}
+<C>\n   {line_num++}
 
 <<EOF>>     { line_num++; yyterminate(); }
 \n         { line_num++; }
